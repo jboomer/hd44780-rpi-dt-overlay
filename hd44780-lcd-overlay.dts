@@ -2,17 +2,17 @@
  * Device tree overlay for HD44780 LCD auxilliary display
  */
 
-/dts-v1/
-/plugin/
+/dts-v1/;
+/plugin/;
 / {
-    compatible = "brcm, bcm2835";
+    compatible = "brcm, bcm2708";
 
     fragment@0 {
         target-path = "/";
         __overlay__ {
             // Creates an auxdisplay node with label  "lcd-screen"
             lcd_screen: auxdisplay {
-                compatible = "hit, hd44780";
+                compatible = "hit,hd44780";
 
                 data-gpios = <&gpio 6 0>,
                              <&gpio 13 0>,
@@ -28,9 +28,13 @@
         };
     };
 
-    // TODO: Enable settable params for pins and width/height
     __overrides__ {
-
+        lcd_pin_d4 = <&lcd_screen>,"data-gpios:4";
+        lcd_pin_d5 = <&lcd_screen>,"data-gpios:16";
+        lcd_pin_d6 = <&lcd_screen>,"data-gpios:28";
+        lcd_pin_d7 = <&lcd_screen>,"data-gpios:40";
+        lcd_pin_en = <&lcd_screen>,"enable-gpios:4";
+        lcd_pin_rs = <&lcd_screen>,"rs-gpios:4";
     };
 
 };
